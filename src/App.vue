@@ -1,21 +1,43 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <v-card >
+    <v-layout>
+      <v-app-bar color="blue" density="compact">
+        <template v-slot:prepend>
+          <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        </template>
+        <v-app-bar-title>
+          <v-btn flat> <router-link to="/">Home</router-link> </v-btn>
+          <router-link to="/travel">Travel</router-link>
+        </v-app-bar-title>
+        <template v-slot:append>
+          <v-btn icon="mdi-dots-vertical"></v-btn>
+        </template>
+      </v-app-bar>
+      <v-main>
+        <v-container fluid>
+          <router-view></router-view>
+        </v-container>
+      </v-main>
+    </v-layout>
+  </v-card>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import colors from 'vuetify/lib/util/colors'
+export default {
+  name: 'App',
+
+  components: {
+    HelloWorld,
+    components,
+    directives
+  },
+
+  data: () => ({
+    //
+  }),
 }
-</style>
+</script>
