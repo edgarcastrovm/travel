@@ -3,6 +3,7 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
 import {createRouter,createWebHistory} from 'vue-router'
+import store from './store'
 import Home from './views/Home.vue'
 import Travel from './views/Travel.vue'
 
@@ -18,4 +19,5 @@ const router = createRouter({
 createApp(App)
   .use(vuetify)
   .use(router)
+  .use(store)
   .mount('#app')
