@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  frontend:
+    image: polimundo/vue
+    volumes:
+      - ./dist:/usr/share/nginx/html
+    ports:
+      - "82:80"
