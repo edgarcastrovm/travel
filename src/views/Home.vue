@@ -1,11 +1,13 @@
 <template>
+        <v-virtual-scroll height="144" item-height="20">
   <v-card class="mx-auto" max-width="1000" >
     <v-list>
       <v-list-subheader>Vuelos</v-list-subheader>
-      <ItemVuelo v-for="(item, i) in turnos" :key="i" :value="i" :vuelo='item'  active-color="primary" variant="plain" >
-      </ItemVuelo>
+        <ItemVuelo v-for="(item, i) in turnos" :key="i" :value="i" :vuelo='item'  active-color="primary" variant="plain" >
+        </ItemVuelo>
     </v-list>
   </v-card>
+      </v-virtual-scroll>
 </template>
 <script>
   import ItemVuelo from '../components/ItemVuelo.vue'
@@ -46,3 +48,8 @@
     }
   }
 </script>
+<style scoped>
+.v-list {
+  max-height: 85vh;
+}
+</style>

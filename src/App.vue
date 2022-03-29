@@ -6,15 +6,15 @@
           <v-app-bar-nav-icon></v-app-bar-nav-icon>
         </template>
         <v-app-bar-title>
-          <v-btn flat> <router-link to="/">Home</router-link> </v-btn>
-          <router-link to="/travel">Travel</router-link>
+          <v-btn link> <router-link link to="/">Home</router-link> </v-btn>
+          <v-btn link> <router-link  link to="/travel">Travel</router-link></v-btn>
         </v-app-bar-title>
         <template v-slot:append>
           <v-btn icon="mdi-dots-vertical"></v-btn>
         </template>
       </v-app-bar>
       <v-main>
-        <v-container fluid>
+        <v-container fluid style="min-height:95vh">
           <router-view></router-view>
         </v-container>
       </v-main>
@@ -41,3 +41,10 @@ export default {
   }),
 }
 </script>
+<style scoped>
+  a{
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+  }
+</style>

@@ -1,7 +1,7 @@
 <template>
   <v-list-item 
     :prepend-icon="'mdi-call-split'"
-    :title="`${vuelo.linea} ${vuelo.origen} -> ${vuelo.destino}`"
+    :title="`${vuelo.linea} ${vuelo.tipo?vuelo.tipo:''} ${vuelo.origen} - ${vuelo.destino}`"
     :subtitle="`$ ${vuelo.precio}`"
     >
     <template v-slot:append>

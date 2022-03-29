@@ -16,6 +16,7 @@
               ></v-autocomplete>
         </v-col>
         <v-col>
+          <v-text>Salida</v-text>
           <Datepicker
             v-model="dStart"
             placeholder="Seleccione fecha salida"
@@ -36,6 +37,7 @@
               ></v-autocomplete>
         </v-col>
         <v-col>
+          <v-text>Retorno</v-text>
           <Datepicker
             v-model="dEnd"
             placeholder="Seleccione fecha retorno"
@@ -44,12 +46,9 @@
         </v-col>
       </v-row>
         <v-card-actions>
-          <v-btn text>
-            Cancel
-          </v-btn>
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click="submit" >
-            Submit
+            Buscar vuelo
           </v-btn>
         </v-card-actions>
     </v-container>
@@ -65,7 +64,7 @@
     </v-alert>
   </v-form>
 
-  <v-card class="mx-auto" max-width="1000" >
+  <v-card class="mx-auto" max-width="1200" >
     <v-list>
       <v-list-subheader>Vuelos disponibles</v-list-subheader>
       <ItemVuelo v-for="(item, i) in turnosDisp" :key="i" :value="i" :vuelo='item'  active-color="primary" variant="plain" >
@@ -75,7 +74,7 @@
 </template>
 
 <script>
-import {ItemVuelo } from '../components/ItemVuelo.vue'
+import ItemVuelo from '../components/ItemVuelo.vue'
 
 export default {
   data() {
@@ -96,6 +95,9 @@ export default {
   },
   components:{
     ItemVuelo
+  },
+  created(){
+    this.dEnd.setDate(this.dStart.getDate() + 5)
   },
   mounted(){
     this.vuelos = this.$store.state.vuelos
@@ -127,7 +129,8 @@ export default {
             'destino': vuelo.destino,
             'precio': vuelo.precio,
             'linea': vuelo.linea,
-            'tiempo':vuelo.tiempo
+            'tiempo':vuelo.tiempo,
+            'tipo':''
           }
           this.turnos.push(turno)
         })
@@ -142,7 +145,27 @@ export default {
         this.alert=true
         return
       }
-      
+      this.turnosDisp= []
+      this.turnos.forEach(el =>{
+        let datePieces = el.fecha.split("/");
+        let dS= new Date(datePieces[2], (datePieces[1] - 1), datePieces[0])
+
+        if(el.origen === this.salida && el.destino === this.destino
+        && dS >= this.dStart && dS <= this.dEnd){
+          el.tipo = 'ida'
+          this.turnosDisp.push(el)
+        }
+        if(el.origen === this.destino && el.destino === this.salida
+        && dS >= this.dStart && dS <= this.dEnd){
+          el.tipo = 'vuelta'
+          this.turnosDisp.push(el)
+        }
+      })
+        console.log(this.turnosDisp)
+      this.error += this.turnosDisp.length>0 ? '' : 'No hay vuelos disponibles '
+      if(this.error){
+        this.alert=true
+      }
     }
   }
 
