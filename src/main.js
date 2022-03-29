@@ -7,6 +7,10 @@ import store from './store'
 import Home from './views/Home.vue'
 import Travel from './views/Travel.vue'
 
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
+
 loadFonts()
 const router = createRouter({
   history: createWebHistory(),
@@ -20,4 +24,5 @@ createApp(App)
   .use(vuetify)
   .use(router)
   .use(store)
+  .component('Datepicker', Datepicker)
   .mount('#app')
